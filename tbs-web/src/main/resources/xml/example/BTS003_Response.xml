@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--纳税明细查询响应报文-->
+<message>
+	<head>
+		<service_id>BTS003</service_id>
+		<channel_id>NBDS.SYFWPT.NBYH</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234556</access_key>
+		<receive_seq>6dbaaffac592401e87da4d163c3e99f0</receive_seq>
+		<receive_date>20170821</receive_date>
+		<receive_time>102031110</receive_time>
+		<is_encrypted>N</is_encrypted>
+		<rtn_code>0</rtn_code>
+		<rtn_msg>请求成功</rtn_msg>
+	</head>
+	<body><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<tbl>
+	<nsmxlist>
+		<nsmxlistitem>
+			<card_type>201</card_type>
+			<card_no>330201198801011234</card_no>
+			<full_name>姓名1</full_name>
+			<mobile>15012341234</mobile>
+			<tax_date>201608</tax_date>
+			<pretax_income>4000</pretax_income>			 
+			<actual_tax_amount>150</actual_tax_amount>
+			<housing_fund>200</housing_fund>
+			<social_security>128</social_security>		 
+		</nsmxlistitem>
+		<nsmxlistitem>
+			<card_type>201</card_type>
+			<card_no>330201198801011234</card_no>
+			<full_name>姓名1</full_name>
+			<mobile>15012341234</mobile>
+			<tax_date>201609</tax_date>
+			<payable_tax_amount>500</payable_tax_amount>
+			<actual_tax_amount>150</actual_tax_amount>
+			<housing_fund>200</housing_fund>
+			<social_security>128</social_security>		
+		</nsmxlistitem>		 	 
+	</nsmxlist>
+</tbl>
+]]></body>
+</message>

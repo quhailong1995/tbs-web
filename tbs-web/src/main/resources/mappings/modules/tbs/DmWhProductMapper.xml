@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.DmWhProductMapper" >
+
+  <sql id="Base_Column_List" >
+    t.id,
+    t.channel_id,
+    t.product_name,
+    t.product_comment,
+    t.cpjj,
+    t.loan_before_yfs,
+    t.remark,
+    t.yxbz,
+    t.xybz,
+    t.create_name,
+    t.create_date,
+    t.update_name,
+    t.update_date
+  </sql>
+  
+  <select id="findProductList" resultType="DmWhProduct">
+	  select
+	  <include refid="Base_Column_List"></include>
+	  from dm_wh_product t
+  </select>
+  
+  <select id="findProduct" resultType="DmWhProduct">
+  	  select
+	  <include refid="Base_Column_List"></include>
+	  from dm_wh_product t
+	  where t.product_name = '${productName}'
+  </select>
+  
+  
+</mapper>

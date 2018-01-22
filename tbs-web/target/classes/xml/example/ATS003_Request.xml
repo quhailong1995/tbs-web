@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--银行产品列表查询请求报文-->
+<message>
+	<head>
+		<service_id>ATS003</service_id>
+		<channel_id>NBDS.SYFWPT.DZSJAPP</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234512</access_key>
+		<send_seq>6dbaaffac592401e87da4d163c3e99f0</send_seq>
+		<send_date>20170821</send_date>
+		<send_time>102031110</send_time>
+		<is_encrypted>N</is_encrypted>
+	</head>
+	<body><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+	<tbl>
+		 <card_type>301</card_type>
+		 <card_no>350505198207199703</card_no>
+		 <full_name>凌风一</full_name>
+		 <is_auth></is_auth><!--Y or N  Y已授权 N未授权  空或节点不存在为全部-->
+	</tbl>
+]]></body>
+</message>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.UserLoanMapper" >
+  
+  <resultMap type="UserLoan" id="userLoanMap">
+  	<id column="id" property="id" />
+  	<result column="zjhm" property="cardNo"  />
+  	<result column="xm" property="fullName"  />
+  	<result column="channel_id" property="channelId"  />
+  	<result column="channel_comment" property="channelName"  />
+  	<result column="loan_begin" property="loanBegin" />
+  	<result column="loan_end" property="loanEnd"  />
+  	<result column="term" property="term"  />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+  	distinct
+  	l.id,
+    l.userid,
+    tu.zjlx_dm cardType,
+    tu.xm full_name,
+    tu.zjhm,
+    l.loan_begin,
+    l.loan_end,
+    (case when l.term is null then '0'
+     else to_char(l.term) end) || '个月' term,
+    l.create_date,
+    l.loan_money,
+    l.channel_id,
+    d.channel_comment
+  </sql>
+  <select id="selectList" resultMap="userLoanMap">
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_user_loan l 
+	  left join dm_wh_channel d on l.channel_id = d.id
+	  left join tb_user tu on l.userid = tu.id
+	  <where>
+	  	1 = 1
+	    ${ew.sqlSegment.replace('loan_end1','l.loan_end')
+	    				.replace('loan_end2','l.loan_end')
+	    				.replace('channel_name','l.channel_id')
+	    				.replace('card_no','tu.zjhm')
+	    				.replace('id ASC,','')} 
+	  </where>
+  </select>
+</mapper>

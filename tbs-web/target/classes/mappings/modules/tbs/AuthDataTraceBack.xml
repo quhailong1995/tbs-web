@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AuthDataTraceBack" >
+
+
+
+	<select id="queryY_ywzj" parameterType="java.lang.String"   resultType="java.util.HashMap">
+		select y_ywzj from hjxx where hjid=#{hjid} and rownum=1
+	</select>
+	
+	<select id="queryDahlb" parameterType="java.lang.String"   resultType="java.util.HashMap">
+		SELECT dahlb FROM dj_zrrbd WHERE bdxh = #{y_ywzj} and rownum=1
+	</select>
+	
+	<select id="queryJinSanCore" parameterType="java.lang.String"   resultType="java.util.HashMap">
+		<if test="dahlb!=null and dahlb!='' and dahlb!='null' ">
+			SELECT* FROM sb_kjgrsdsbgb_mx a  where djxh in ${dahlb} ORDER BY SDQJQ DESC 
+		</if>
+		<if test="dahlb=null and dahlb='' and dahlb='null' ">
+			SELECT* FROM sb_kjgrsdsbgb_mx a  where djxh =#{dahlb} ORDER BY SDQJQ DESC  
+		</if>
+	</select>
+
+
+
+   <select id="queryGSSPT" parameterType="java.util.HashMap"   resultType="java.util.HashMap">
+         
+			select *
+			  from (SELECT DISTINCT T.*
+			          FROM PERSONALTAXLIST T, DECLARECOLLECTION H
+			         WHERE T.TICKET = H.TICKET
+			           AND (T.FINCOME != 0 OR T.FPAYTAX != 0)              
+			           AND T.FIDTYPE = '1'
+			           AND T.FIDNUM = #{FIDNUM}
+			           AND T.FNAME = #{FNAME}
+			        union all
+			        SELECT DISTINCT T.*
+			          FROM PERSONALTAXLIST_s T, DECLARECOLLECTION H
+			         WHERE T.TICKET = H.TICKET
+			           AND (T.FINCOME != 0 OR T.FPAYTAX != 0)
+			           AND T.FIDTYPE = '1'
+			           AND T.FIDNUM = #{FIDNUM}
+			           AND T.FNAME = #{FNAME}
+			           )
+			 order by fyear desc, fmonth desc
+
+    </select>
+
+
+</mapper>

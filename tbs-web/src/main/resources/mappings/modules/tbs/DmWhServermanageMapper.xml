@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.DmWhServermanageMapper" >
+
+  <sql id="Base_Column_List" >
+    t.id,
+    t.server_mc,
+    t.server_ip,
+    t.server_port,
+    t.app_dm,
+    t.app_mc,
+    t.server_environment,
+    t.xybz,
+    t.server_state
+  </sql>
+  
+</mapper>

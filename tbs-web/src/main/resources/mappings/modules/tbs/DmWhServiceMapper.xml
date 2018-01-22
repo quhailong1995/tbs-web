@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.DmWhServiceMapper" >
+
+  <sql id="Base_Column_List" >
+    t.id,
+    t.service_name,
+    t.service_comment,
+    t.service_type,
+    t.method_path,
+    t.yxbz,
+    t.xybz,
+    t.create_name,
+    t.create_date,
+    t.update_name,
+    t.update_date,
+    t.service_class_name,
+    t.remarks
+  </sql>
+  
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.AuthLogMapper" >
+  
+  <resultMap type="AuthLog" id="authLogMap">
+  	<id column="id" property="id" />
+  	<result column="userid" property="userid"  />
+  	<result column="zjhm" property="cardNo" />
+  	<result column="xm" property="fullName"  />
+  	<result column="channel_name" property="channelName"  />
+  	<result column="channel_comment" property="channelComment"  />
+  	<result column="service_name" property="serviceName"  />
+  	<result column="service_comment" property="serviceComment"  />
+  	<result column="access_token" property="accessToken"  />
+  	<result column="send_seq" property="sendSeq"  />
+  	<result column="lrrq" property="lrrq"  />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+  	distinct
+  	to_char(t.xh) as id,
+  	t.userid,
+  	tu.zjhm,
+  	tu.xm,
+  	t.channel_name,
+    d.channel_comment,
+    t.service_name,
+    s.service_comment,
+    t.access_token,
+    t.send_seq,
+    t.lrrq
+  </sql>
+  
+  <sql id="tables">
+  	 left join dm_wh_channel d on t.channel_name = d.channel_name
+	 left join dm_wh_service s on t.service_name = s.service_name
+	 left join tb_user tu on t.userid = tu.id
+  </sql>
+  
+  <sql id="wheres">
+  	<where>
+	  	1 = 1
+	    ${ew.sqlSegment.replace('card_no','tu.zjhm')
+	    				.replace('channel_comment','t.channel_name')
+	    				.replace('service_comment','t.service_name')
+	    				.replace('full_name','tu.xm')
+	    				.replace('id ASC,','')} 
+	  </where>
+  </sql>
+  
+  <select id="findList" resultMap="authLogMap">
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_auth_querylog t
+	  <include refid="tables"></include>
+	  <include refid="wheres"></include>
+  </select>
+</mapper>

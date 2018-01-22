@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--纳税结果查询请求报文-->
+<message>
+	<head>
+		<service_id>BTS004</service_id>
+		<channel_id>NBDS.SYFWPT.NBYH</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234556</access_key>
+		<send_seq>6dbaaffac592401e87da4d163c3e99f0</send_seq>
+		<send_date>20170821</send_date>
+		<send_time>102031110</send_time>
+		<is_encrypted>N</is_encrypted>
+	</head>
+	<body><![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+		<tbl>
+			<card_type>201</card_type>
+			<card_no>330201198801011234</card_no>
+			<full_name>姓名1</full_name>
+			<txdate_begin>201607</txdate_begin>
+			<txdate_end>201707</txdate_end>
+			<access_token>12341234c592401e87da4d163c3e99f0</access_token>
+		</tbl>
+]]></body>
+</message>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.UserAuthMapper" >
+  
+  <resultMap type="UserAuth" id="userAuthMap">
+  	<id column="id" property="id" />
+  	<result column="zjhm" property="cardNo"  />
+  	<result column="full_name" property="fullName"  />
+  	<result column="channel_id" property="channelId"  />
+  	<result column="channel_comment" property="channelName"  />
+  	<result column="auth_date" property="authDate" />
+  	<result column="loan_after_yfs" property="term"  />
+  	<result column="auth_type" property="authType"  />
+  	<result column="auth_content" property="authContent"  />
+  	<result column="auth_code" property="authCode"  />
+  	<result column="sign_data" property="signData" jdbcType="BLOB" />
+  	<result column="userid" property="userId"  />
+  	<result column="product_id" property="productId"  />
+  	<result column="hjid" property="hjid"  />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+  	distinct
+  	u.id,
+  	u.userid,
+  	u.product_id,
+    tu.zjlx_dm cardType,
+    tu.xm full_name,
+    tu.zjhm,
+    tu.hjid,
+    u.channel_id,
+    d.channel_comment,
+    u.expired_date,
+    u.auth_date,
+    to_char(wp.loan_after_yfs) || '个月' loan_after_yfs,
+    u.auth_type,
+    (select replace(to_char(wm_concat(s.COLUMN_COMMENT)),',','，')
+	 from tb_auth_content c,dm_wh_ser_content s 
+	 where c.scontent_id = s.id
+	 and c.channel_id = u.channel_id) auth_content,
+	 u.auth_code,
+	 u.carz_id,
+	 u.create_date
+	 
+  </sql>
+  
+  <sql id="tables">
+  	left join dm_wh_channel d on u.channel_id = d.id
+  	left join tb_user tu on u.userid = tu.id
+    left join dm_wh_product wp on u.product_id = wp.id
+  </sql>
+  
+  <sql id="wheres">
+  	<where>
+	  	1=1
+	   	${ew.sqlSelect.replace('begin_date1','u.auth_date')
+	   					.replace('begin_date2','u.auth_date')
+	   					.replace('term','loan_after_yfs')
+	   					.replace('channel_name','u.channel_id')
+	   					.replace('card_no','tu.zjhm')
+	   					.replace('id ASC,','')}
+	  </where>
+  </sql>
+  
+  <!-- 查询用户授权信息 -->
+  <select id="findList" resultMap="userAuthMap">
+  	select tt.*,tc.sign_data 
+  	from(
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_user_auth u 
+	  <include refid="tables"></include>
+	  <include refid="wheres"></include>) tt
+	left join tb_caevent tc on tt.carz_id = tc.id   ORDER BY auth_date DESC
+  </select>
+  
+  <!-- 查询用户授权历史信息 -->
+  <select id="findHistoryList" resultMap="userAuthMap">
+	  select tt.*,tc.sign_data 
+	  from(
+	  	select  
+	  	<include refid="Base_Column_List" /> 
+	  	,(case u.status
+	  		when  '1' then '正常到期'
+		    when  '2' then '取消授权'
+		    else '不明' end) status
+		 
+		from tb_user_auth_ls u 
+		<include refid="tables"></include>
+		<include refid="wheres"></include>) tt
+	left join tb_caevent tc on tt.carz_id = tc.id
+  </select>
+  
+  
+</mapper>

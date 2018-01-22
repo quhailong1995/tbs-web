@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.ReportStatisticsMapper" >
+
+	<resultMap type="cn.jeeweb.modules.tbs.entity.ServiceCallReport" id="serviceCallReportMap">
+		<result property="sDate" column="sDate"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+	
+	<select id="userAuthReportCount" resultType="java.lang.Integer">
+		select count(*)  from tb_user_auth where to_char(auth_date,'yyyy-mm')= #{dateStr}
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+	</select>
+	<select id="userRelieveAuthReportCount" resultType="java.lang.Integer">
+		select count(*)  from tb_user_auth_ls where to_char(auth_date,'yyyy-mm')= #{dateStr} and status = '2'
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+	</select>
+	<select id="userAuthLsReportCount" resultType="java.lang.Integer">
+		select count(*) from tb_user_auth_ls where to_char(auth_date,'yyyy-mm')= #{dateStr} and status = '1'
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+		
+	</select>
+	
+
+	
+	<select id="userLoanReportCount" resultType="userLoanReport">
+		select count(*) loanCount ,sum(loan_money) loanTotalPrice from tb_user_loan where to_char(loan_begin,'yyyy-mm')= #{dateStr}
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+	</select>
+	
+	<select id="userLoanExpireReportCount" resultType="java.lang.Integer">
+		select count(*) from tb_user_loan where to_char(loan_begin,'yy-mm')= #{dateStr} and (select sysdate from dual)&lt;=(select add_months(loan_begin,term) from dual)
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+	</select>
+	<select id="userLoanAdvanceRepayCount" resultType="java.lang.Integer">
+		select count(*) from tb_user_loan where loan_end&gt; (select add_months(loan_begin,term) from dual)
+		<if test="productId!=null and productId!='' and productId!='null' ">
+			and product_id = #{productId}
+		</if>
+	</select>
+	
+	
+	<select id="userLoanQueryReportCount" resultType="java.lang.Integer">
+		select count(*) from tb_auth_querylog where to_char(lrrq,'yyyy-mm')= #{dateStr}
+		<if test="channelName!=null and channelName!='' and channelName!='null' ">
+			and channel_name = #{channelName}
+		</if>
+		<if test="serviceName!=null and serviceName!='' and serviceName!='null' ">
+			and service_name = #{serviceName}
+		</if>
+	</select>
+	
+	
+	<select id="serviceCallReportList" resultMap="serviceCallReportMap">
+		select trunc(lrrq) sDate,count(*) count from tb_transactionlog where  to_char(lrrq,'yyyy-mm')= #{dateStr}
+		<if test="channelName!=null and channelName!='' and channelName!='null' ">
+			and channel_name = #{channelName}
+		</if>
+		group by  trunc(lrrq) order by sDate
+	</select>
+	
+
+
+  
+</mapper>

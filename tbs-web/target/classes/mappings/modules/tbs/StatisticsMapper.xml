@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.StatisticsMapper" >
+
+	<resultMap type="cn.jeeweb.modules.tbs.entity.Statistics" id="statisticsMap">
+		<result property="sDate" column="sdate"/>
+		<result property="sHour" column="shour"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+	<select id="statisticsTbTA" resultMap="statisticsMap">
+		select trunc(lrrq) sdate, 
+		 <if test="sType=='hour'">
+			to_char(lrrq,'hh24') shour,count(*) count from tb_transactionlog where
+			 lrrq>(SELECT to_date(to_char(SYSDATE-1+1/24,'yyyy-mm-dd hh24'),'yyyy-mm-dd hh24')  FROM DUAL)
+		</if>
+		<if test="sType=='day'">
+			count(*) count from tb_transactionlog where trunc(lrrq)>=
+			(select trunc(add_months(sysdate,-1)) from dual)
+			and trunc(lrrq)!=(select trunc(sysdate) from dual)
+		</if>
+		<if test="serviceName!=null and serviceName!='' and serviceName!='null' ">
+			and service_name = #{serviceName}
+		</if>
+		<if test="channelName!=null and channelName!='' and channelName!='null' ">
+			and channel_name = #{channelName}
+		</if>
+		   group by  trunc(lrrq)
+		<if test="sType=='hour'">
+			,to_char(lrrq,'hh24') order by shour
+		</if>
+		<if test="sType=='day'">
+			order by sdate
+		</if>
+	</select>
+
+	<select id="userLoanStatistics" resultMap="statisticsMap">
+		select trunc(loan_begin) sdate,count(*) count from tb_user_loan where
+			channel_id=#{channelId} 
+			and trunc(loan_begin)>=(select trunc(sysdate-15) from dual)
+			and trunc(loan_begin)!=(select trunc(sysdate) from dual)
+			group by  trunc(loan_begin)
+	</select>
+	
+	<select id="userAuthStatistics" resultMap="statisticsMap">
+		select trunc(auth_date) sdate,count(*) count 
+		from 
+		(select auth_date  from tb_user_auth  where
+		trunc(auth_date)>=(select trunc(sysdate-15) from dual) and trunc(auth_date)!=(select trunc(sysdate) from dual)  
+		
+		<if test="channelId!=null and channelId!='' and channelId!='null' ">
+			and channel_id = #{channelId}
+		</if>
+		
+		union all 
+		select auth_date from tb_user_auth_ls  where
+		trunc(auth_date)>=(select trunc(sysdate-15) from dual) and trunc(auth_date)!=(select trunc(sysdate) from dual)
+		
+		<if test="channelId!=null and channelId!='' and channelId!='null' ">
+			and channel_id = #{channelId}
+		</if>
+		)  
+		
+		
+		
+		group by  trunc(auth_date)
+		
+	</select>
+
+
+  
+</mapper>

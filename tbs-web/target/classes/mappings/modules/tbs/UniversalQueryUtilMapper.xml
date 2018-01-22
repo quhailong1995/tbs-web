@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.UniversalQueryUtilMapper" >
+ 
+  
+  <select id="queryResults" resultType="java.util.LinkedHashMap">
+ 	${sqlStatement}
+  </select>
+  
+  
+  <insert id="addRecordBatch" useGeneratedKeys="false" parameterType="java.util.HashMap">  
+    <!-- <selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+    </selectKey>   -->
+   	 
+    ${baseSql}
+    
+    <foreach close=")" open="(" collection="dataSqlList" item="item" index="index" separator="union" >  
+    select  
+    	${item}
+    from dual   
+    </foreach>  
+</insert>  
+ 
+  
+  
+</mapper>

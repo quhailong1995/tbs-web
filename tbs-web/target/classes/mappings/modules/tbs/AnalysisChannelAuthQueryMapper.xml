@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AnalysisChannelAuthQueryMapper" >
+
+
+
+	<resultMap type="java.util.HashMap" id="BlobToString">
+        <result column="RET_DATA" property="RET_DATA" jdbcType="BLOB" javaType="java.lang.String"
+                typeHandler="cn.jeeweb.modules.tbs.helper.OracleBlobTypeHandler"/>
+    </resultMap>
+
+    
+	 <select id="channelAuthQuery"   resultType="java.util.HashMap">
+          select * from tb_auth_querylog a where a.service_name ='BTS003' and a.XH not in (select XH from tb_authquerylog_ani)  order by lrrq asc
+     </select>
+     
+     <select id="queryMessageBlob" parameterType="java.lang.String"  resultMap="BlobToString">  
+       select b.RET_DATA from tb_transactionlog a
+		  left join tb_transactionlog_data b on a.xh=b.xh
+		 where a.service_name = 'BTS003'
+		   and a.send_seq = #{send_seq}
+		  
+     </select>
+
+	<insert id="saveMessageRecord" useGeneratedKeys="false" parameterType="java.util.HashMap">  
+	      insert into tb_authquerylog_ani(XH,SEND_SEQ,USERID,TOTAL_MONTH,IS_ZD,MAX_SALARY,IS_SX,PRODUCT_ID,CHANNEL_NAME,LRRQ,LRSJ)
+           values
+           (#{XH},
+            #{SEND_SEQ},
+            #{USERID},
+            #{TOTAL_MONTH},
+            #{IS_ZD},
+            #{MAX_SALARY},
+            #{IS_SX},
+            #{PRODUCT_ID},
+            #{CHANNEL_NAME},
+            #{LRRQ},
+            sysdate)
+	</insert>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.TbAuthquerylogAniMapper" >
+
+
+
+  <resultMap type="TbAuthquerylogAni" id="tbAuthquerylogAniMap">
+  	<id column="xh" property="id" />
+  	<result column="zjhm" property="zjhm"  />
+  	<result column="full_name" property="fullName"  />
+  	<result column="lrsj" property="lrsj"  />
+  	<result column="lrrq" property="lrrq"  />
+  	<result column="is_sx" property="isSx"  />
+  	<result column="is_zd" property="isZd"  />
+  	<result column="max_salary" property="maxSalary"  />
+  	<result column="total_month" property="totalMonth"  />
+  	<result column="product_id" property="productId"  />
+  	<result column="userid" property="userid"  />
+  	<result column="sendSeq" property="sendSeq"  />
+  	
+  	<result column="product_comment" property="productComment"  />
+  	<result column="hjid" property="hjid"  />
+  	
+  	
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    t.LRSJ,
+    t.LRRQ,
+    t.CHANNEL_NAME,
+    (case when  t.IS_SX=1 then '授信'
+     else '未授信' end) IS_SX,
+    t.IS_ZD,
+    t.MAX_SALARY,
+    t.TOTAL_MONTH,
+    t.PRODUCT_ID,
+    t.USERID,
+    t.SEND_SEQ,
+    t.XH,
+    wp.product_comment,
+    tu.xm full_name,
+     tu.zjhm,
+       tu.hjid
+  </sql>
+  
+  <sql id="tables">
+  	left join tb_user tu on t.userid = tu.id
+    left join dm_wh_product wp on t.product_id = wp.id
+  </sql>
+  
+   <sql id="wheres">
+  	<where>
+	  	1=1
+	   	${ew.sqlSegment.replace('zjhm','tu.zjhm')
+	   					.replace('full_name','tu.xm')
+	   					.replace('lrrq','t.lrrq')
+	   					.replace('productComment','wp.product_comment')
+	   					.replace('id ASC','t.LRRQ DESC')}
+	   
+	  </where>
+  </sql>
+  
+  <select id="myselectPage" resultMap="tbAuthquerylogAniMap">
+  	select 
+  	<include refid="Base_Column_List" /> 
+  	from 
+  	tb_authquerylog_ani t
+	<include refid="tables"></include>
+	<include refid="wheres"></include>
+  </select>
+  
+  
+</mapper>

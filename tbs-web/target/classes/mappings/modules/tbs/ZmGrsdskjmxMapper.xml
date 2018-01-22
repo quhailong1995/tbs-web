@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.ZmGrsdskjmxMapper" >
+  
+  <resultMap type="ZmGrsdskjmx" id="zmGrsdskjmxMap">
+  	<id column="id" property="id" />
+  	<result column="userid" property="userId"  />
+  	<result column="product_id" property="productId"  />
+  	<result column="skssqq" property="skssqq"  />
+  	<result column="skssqz" property="skssqz"  />
+  	<result column="grsdssdxm_dm" property="grsdssdxmDm" />
+  	<result column="sre" property="sre"  />
+  	<result column="sbfjcs" property="sbfjcs"  />
+  	<result column="gjjjcs" property="gjjjcs"  />
+  	<result column="ynse" property="ynse"  />
+  	<result column="snse" property="snse" />
+  	<result column="ynssde" property="ynssde"  />
+  	<result column="kjywrmc" property="kjywrmc"  />
+  	<result column="kjywrdz" property="kjywrdz"  />
+  	<result column="etl_date" property="etlDate"  />
+  	<result column="product_comment" property="kjywrdz"  />
+  	<result column="xm" property="userName"  />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+	u.*,tu.xm,d.product_comment
+  </sql>
+  
+  <sql id="tables">
+    left join tb_user tu on u.userid = tu.id
+  	left join dm_wh_product d on u.product_id = d.id
+  </sql>
+  
+  <sql id="wheres">
+  	<where>
+	  	1=1
+	   	 ${ew.sqlSegment} 
+	  </where>
+  </sql>
+  
+  <select id="mySelectList" resultMap="zmGrsdskjmxMap">
+ 
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from zm_grsdskjmx u 
+	  <include refid="tables"></include>
+	  <include refid="wheres"></include>
+  </select>
+ 
+  
+  
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--授权内容查询响应报文-->
+<message>
+	<head>
+		<service_id>ATS001</service_id>
+		<channel_id>NBDS.SYFWPT.DZSJAPP</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234512</access_key>
+		<receive_seq>6dbaaffac592401e87da4d163c3e99f0</receive_seq>
+		<receive_date>20170821</receive_date>
+		<receive_time>102031110</receive_time>
+		<is_encrypted>N</is_encrypted>
+		<rtn_code>0</rtn_code>
+		<rtn_msg>请求成功</rtn_msg>
+	</head>
+	<body><![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+	<tbl> 
+		<auth_type>1</auth_type><!--授权类型1、实时授权 2、预授权-->
+		<!--预授权不显示纳税明细nsmxlistitem、nsjg-->
+		<nsmxlist>			
+			<nsmxlistitem>
+				<card_type>201</card_type>
+				<card_no>330201198801011234</card_no>
+				<full_name>姓名1</full_name>
+				<mobile>15012341234</mobile>
+				<tax_date>201608</tax_date>
+				<pretax_income>4000</pretax_income>
+				<!--应纳税额-->
+				<payable_tax_amount>500</payable_tax_amount>
+				<actual_tax_amount>150</actual_tax_amount>
+				<housing_fund>200</housing_fund>
+				<social_security>128</social_security>
+				<withholding_agent>宁波市海曙区海鲜小作坊</withholding_agent>
+				<withholding_agent_address>宁波市海曙区迎风街11号</withholding_agent_address>
+			</nsmxlistitem>
+			<nsmxlistitem>
+				<card_type>201</card_type>
+				<card_no>330201198801011234</card_no>
+				<full_name>姓名1</full_name>
+				<mobile>15012341234</mobile>
+				<tax_date>201608</tax_date>
+				<pretax_income>4000</pretax_income>
+				<!--应纳税额-->
+				<payable_tax_amount>500</payable_tax_amount>
+				<actual_tax_amount>150</actual_tax_amount>
+				<housing_fund>200</housing_fund>
+				<social_security>128</social_security>
+				<withholding_agent>宁波市海曙区海鲜小作坊</withholding_agent>
+				<withholding_agent_address>宁波市海曙区迎风街11号</withholding_agent_address>
+			</nsmxlistitem>
+		</nsmxlist>
+		<nsjg>
+			<deedtax_times>3</deedtax_times>
+		</nsjg>				
+		<sjxlist>
+				<sjxlistitem>
+					<column_name>xm</column_name>
+					<column_comment>姓名</column_comment>
+				</sjxlistitem>
+				<sjxlistitem>
+					<column_name>zjlx</column_name>
+					<column_comment>证件类型</column_comment>
+				</sjxlistitem>
+		 </sjxlist>
+		 <sqqx>
+			<loan_before_yfs>24</loan_before_yfs>
+			<loan_after_yfs>36</loan_after_yfs>
+			<auth_date>2020-08-24</auth_date>
+			<expired_date>2020-08-24</expired_date>
+			<remarkjj>银行产品简介</remarkjj>
+			<product_name>NBYHBLT</product_name>	 	
+			<remark>银行产品详细介绍简介</remark>
+		 </sqqx>
+	</tbl>
+]]></body>
+</message>

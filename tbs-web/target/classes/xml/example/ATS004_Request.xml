@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--用户取消授权请求报文-->
+<message>
+	<head>
+		<service_id>ATS004</service_id>
+		<channel_id>NBDS.SYFWPT.DZSJAPP</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234512</access_key>
+		<send_seq>6dbaaffac592401e87da4d163c3e99f0</send_seq>
+		<send_date>20170821</send_date>
+		<send_time>102031110</send_time>
+		<is_encrypted>N</is_encrypted>
+	</head>
+	<body><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+	<tbl>
+		<data>
+				<sbxx>
+					<sb_name>小米6</sb_name>
+					<czxt>miui9 Android 7.1</czxt>
+					<ip>144.212.12.12</ip>
+					<net>4G</net>
+					<sim_id>cccccccccccccccc</sim_id>
+				</sbxx>
+				<ywxx>
+					 <card_type>301</card_type>
+					 <card_no>350505198207199703</card_no>
+					 <full_name>凌风一</full_name>
+					<channel_name>NBDS.SYFWPT.ZXYH</channel_name>
+					<product_name>ZXYHSJD</product_name>
+					<cancel_auth_date>2017-09-24 22:12:12</cancel_auth_date>
+				</ywxx>
+				<sjc>
+					<timestamp>2017-09-24 22:12:12</timestamp>
+				</sjc>
+			</data>
+			<sign>
+				<cert_data>6dbaaffac592401e87da4d163c3e99f03333231121111111111111…</cert_data>
+				<sign_data>6dbaaffac592401e87121212121111111111111…</sign_data>
+			</sign>
+	</tbl>
+]]></body>
+</message>

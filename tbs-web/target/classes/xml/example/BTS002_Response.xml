@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--访问令牌响应报文-->
+<message>
+	<head>
+		<service_id>BTS002</service_id>
+		<channel_id>NBDS.SYFWPT.NBYH</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234556</access_key>
+		<receive_seq>6dbaaffac592401e87da4d163c3e99f0</receive_seq>		
+		<receive_date>20170821</receive_date>
+		<receive_time>102031110</receive_time>
+		<is_encrypted>N</is_encrypted>
+		<rtn_code>0</rtn_code>
+		<rtn_msg>请求成功</rtn_msg>
+	</head>
+	<body><![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+		<tbl>			
+			<access_token>12341234c592401e87da4d163c3e99f0</access_token>
+		</tbl>
+]]></body>
+</message>

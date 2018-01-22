@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.TbUserMapper" >
+
+  <sql id="Base_Column_List" >
+    t.UPDATE_DATE,
+    t.CREATE_DATE,
+    t.SJHM,
+    t.ZJLX_DM,
+    t.ZJHM,
+    t.XM,
+    t.HJID,
+    t.ID
+  </sql>
+  
+</mapper>

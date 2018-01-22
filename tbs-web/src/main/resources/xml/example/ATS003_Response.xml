@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--授权银行列表查询响应报文-->
+<message>
+	<head>
+		<service_id>ATS003</service_id>
+		<channel_id>NBDS.SYFWPT.DZSJAPP</channel_id>
+		<access_key>6dbaaffac587da4d163c3e99f1234512</access_key>
+		<receive_seq>6dbaaffac592401e87da4d163c3e99f0</receive_seq>
+		<receive_date>20170821</receive_date>
+		<receive_time>102031110</receive_time>
+		<is_encrypted>N</is_encrypted>
+		<rtn_code>0</rtn_code>
+		<rtn_msg>请求成功</rtn_msg>
+	</head>
+	<body><![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+	<tbl> 
+		<authlist>
+			<authlistitem>
+				<channel_id>7be215a75f5f46c3be1c5cf56fefd235</channel_id>
+				<channel_name>NBDS.SYFWPT.NBYH</channel_name>
+				<channel_comment>宁波银行</channel_comment>
+				<product_name></product_name><!--产品代码-->	
+				<product_comment></product_comment><!--产品名称-->				
+				<auth_type>1</auth_type><!--授权类型1、实时授权 2、预授权-->	
+				<auth_date>2017-10-01</auth_date><!--授权日期-->	
+				<expired_date>2020-08-24</expired_date><!--授权到期时间-->
+				<remarkjj>银行产品简介</remarkjj>
+				<remark>银行产品详细介绍</remark>
+				<is_auth></is_auth><!--Y or N  Y已授权 N未授权  -->
+			</authlistitem>
+			<authlistitem>
+				<channel_id>7be215a75f5f46c3be1c5cf56fefd235</channel_id>
+				<channel_name>NBDS.SYFWPT.ZXYH</channel_name>
+				<channel_comment>宁波银行</channel_comment>
+				<product_name></product_name><!--产品代码-->	
+				<product_comment></product_comment><!--产品名称-->	
+				<auth_date>2017-10-01</auth_date><!--授权日期-->
+				<auth_type>2</auth_type><!--授权类型1、实时授权 2、预授权-->		 
+				<expired_date>2020-08-24</expired_date><!--授权到期时间-->
+				<remarkjj>银行产品简介</remarkjj>
+				<remark>银行产品详细介绍</remark>
+				<is_auth></is_auth><!--Y or N  Y已授权 N未授权-->
+			</authlistitem>
+		</authlist>		 
+	</tbl>
+]]></body>
+</message>

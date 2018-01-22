@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.TbPayWayMapper" >
+
+  <sql id="Base_Column_List" >
+    t.WAY_TYPE,
+    t.WAY_MC,
+    t.WAY_DM,
+    t.ID,
+    t.REMARKS,
+    t.UPDATE_DATE,
+    t.UPDATE_NAME,
+    t.CREATE_DATE,
+    t.CREATE_NAME,
+    t.XYBZ,
+    t.PAY_SECRETKEY,
+    t.PAY_KEY
+  </sql>
+  
+</mapper>

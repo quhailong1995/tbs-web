@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jeeweb.modules.tbs.mapper.TransactionLogMapper" >
+  
+  <resultMap type="TransactionLog" id="transactionLogMap">
+  	<id column="id" property="id" />
+  	<result column="channel_name" property="channelName"  />
+  	<result column="channel_comment" property="channelComment"  />
+  	<result column="service_name" property="serviceName"  />
+  	<result column="service_comment" property="serviceComment"  />
+  	<result column="lrrq" property="lrrq"  />
+  	<result column="code" property="code" />
+  	<result column="state" property="state"  />
+  	<result column="massage" property="massage"  />
+  	<result column="userid" property="userid"  />
+  	<result column="xm" property="fullName"  />
+  	<result column="zjhm" property="cardNo"  />
+  	<result column="send_seq" property="sendSeq"  />
+  	<result column="rec_data" property="recData" jdbcType="BLOB" />
+  	<result column="ret_data" property="retData" jdbcType="BLOB" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+  	distinct
+  	to_char(t.xh) as id,
+  	t.channel_name,
+    d.channel_comment,
+    t.service_name,
+    s.service_comment,
+    t.lrrq,
+    t.code,
+    (case t.code
+      when '0' then'成功'
+      else '失败'
+    end) state,
+    t.massage,
+    t.userid,
+    tu.xm,
+    tu.zjhm,
+    t.send_seq
+  </sql>
+  
+  <sql id="tables">
+  	 left join dm_wh_channel d on t.channel_name = d.channel_name
+	 left join dm_wh_service s on t.service_name = s.service_name
+	 left join tb_user tu on t.userid = tu.id
+  </sql>
+  
+  <sql id="wheres">
+  	<where>
+	  	1 = 1
+	    ${ew.sqlSegment.replace('transaction_date1','t.lrrq')
+	    				.replace('transaction_date2','t.lrrq')
+	    				.replace('channel_name','t.channel_name')
+	    				.replace('service_name','t.service_name')
+	    				.replace('card_no','tu.zjhm')
+	    				.replace('full_name','tu.xm')
+	    				.replace('code','t.code')
+	    				.replace('id ASC,','')} 
+	  </where>
+  </sql>
+  
+  <select id="findList" resultMap="transactionLogMap">
+  	select tt.*,td.rec_data,td.ret_data 
+  	from (
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_transactionlog t
+	  <include refid="tables"></include>
+	  <include refid="wheres"></include>) tt
+	  left join tb_transactionlog_data td on tt.id = td.xh
+  </select>
+  
+  
+  <select id="findByEntity" resultMap="transactionLogMap">
+  	select tt.*,td.rec_data,td.ret_data 
+  	from (
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_transactionlog t
+	  <include refid="tables"></include>
+	  where rownum = 1
+	  <if test="id != null and id != ''">
+	  	and t.xh = #{id}
+	  </if>
+	  <if test="userid != null and userid != ''">
+	  	and t.userid = #{userid}
+	  </if>
+	  <if test="sendSeq != null and sendSeq != ''">
+	  	and t.send_seq = #{sendSeq}
+	  </if>
+	  	) tt
+	  left join tb_transactionlog_data td on tt.id = td.xh
+  </select>
+  
+  
+    <select id="findOneByEntity" resultMap="transactionLogMap">
+  	select tt.*,td.rec_data,td.ret_data 
+  	from (
+	  select  
+	  <include refid="Base_Column_List" /> 
+	  from tb_transactionlog t
+	  <include refid="tables"></include>
+	  where rownum = 1
+	  <if test="id != null and id != ''">
+	  	and t.xh = #{id}
+	  </if>
+	  <if test="userid != null and userid != ''">
+	  	and t.userid = #{userid}
+	  </if>
+	  <if test="sendSeq != null and sendSeq != ''">
+	  	and t.send_seq = #{sendSeq}
+	  </if>
+	  <if test="serviceName != null and serviceName != ''">
+	  	and t.service_name = #{serviceName}
+	  </if>
+	  	) tt
+	  left join tb_transactionlog_data td on tt.id = td.xh
+  </select>
+  
+  
+  
+</mapper>
